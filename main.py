@@ -1,22 +1,19 @@
-from Juego import Juego
+"""Punto de entrada del juego del laberinto."""
 
-def test_juego_basico():
-    print("=== INICIALIZANDO JUEGO DE PRUEBA ===")
+from Juego import Juego
+from Interfaz import InterfazTerminal
+
+
+def main():
+    """Inicializa un laberinto de 4 habitaciones y lanza la interfaz de terminal."""
     juego = Juego()
-    juego.fabricar_lab2_hab_fm()
-    print("Laberinto construido con 2 habitaciones exitosamente.")
-    
-    print("\n=== AÑADIR PERSONAJE ===")
-    juego.agregar_personaje("ProtaPython")
-    
-    print("\n=== RECORRER LABERINTO (Patrón Visitor/Iterator) ===")
-    def imprimir_elemento(_elem):
-        # Esta función vacía indica que ya estamos imprimiendo los elementos
-        # dentro de los propios métodos recorrer().
-        pass
-        
-    juego.laberinto.recorrer(imprimir_elemento)
-    print("\n=== FIN DE LA PRUEBA ===")
+    juego.fabricar_lab4_hab_fm()
+    juego.abrir_puertas()
+    juego.agregar_personaje("Hero")
+
+    interfaz = InterfazTerminal(juego)
+    interfaz.bucle_principal()
+
 
 if __name__ == "__main__":
-    test_juego_basico()
+    main()

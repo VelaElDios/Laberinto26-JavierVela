@@ -38,6 +38,7 @@ class Personaje(Ente):
     def __init__(self):
         super().__init__()
         self.nombre = ""
+        self.ultimo_evento = ""
 
     def buscar_enemigo(self):
         # pedir a juego que me devuelva un bicho en mi posicion
