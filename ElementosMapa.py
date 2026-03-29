@@ -52,8 +52,12 @@ class Contenedor(ElementoMapa):
             self.forma.eliminar_orientacion(una_or)
 
     def entrar(self, alguien):
-        print(f"{alguien} está en {self}")
         alguien.posicion = self
+        msg = f"Estás en {self}."
+        if hasattr(alguien, 'ultimo_evento'):
+            alguien.ultimo_evento = msg
+        else:
+            print(f"{alguien} está en {self}")
 
     def ir_al_norte(self, alguien):
         if self.forma:
@@ -84,10 +88,11 @@ class Pared(Hoja):
     Pared es un elemento del mapa que no se puede atravesar
     """
     def entrar(self, alguien):
-        if alguien:
-            print(f"{alguien} se ha chocado con una pared")
+        msg = "¡Chocaste con una pared!"
+        if alguien and hasattr(alguien, 'ultimo_evento'):
+            alguien.ultimo_evento = msg
         else:
-            print("Has chocado con una pared")
+            print(msg)
 
     def __str__(self):
         return "Pared"
@@ -104,8 +109,16 @@ class ParedBomba(Pared):
 
 class Habitacion(Contenedor):
     """
-    Es un contenedor (es elemento mapa) 
+    Es un contenedor (es elemento mapa)
     """
+    def entrar(self, alguien):
+        alguien.posicion = self
+        msg = f"Has entrado en {self}."
+        if hasattr(alguien, 'ultimo_evento'):
+            alguien.ultimo_evento = msg
+        else:
+            print(f"{alguien} está en {self}")
+
     def __str__(self):
         return f"Hab-{self.num}"
 
@@ -118,7 +131,6 @@ class Laberinto(Contenedor):
         self.agregar_hijo(una_hab)
 
     def entrar(self, alguien):
-        print(f"{alguien} ha entrado en el laberinto")
         hab = self.obtener_habitacion(1)
         if hab:
             hab.entrar(alguien)
@@ -162,7 +174,11 @@ class Puerta(Hoja):
                 if self.lado1:
                     self.lado1.entrar(alguien)
         else:
-            print("La puerta está cerrada")
+            msg = "La puerta está cerrada."
+            if hasattr(alguien, 'ultimo_evento'):
+                alguien.ultimo_evento = msg
+            else:
+                print(msg)
 
     def es_puerta(self):
         return True
