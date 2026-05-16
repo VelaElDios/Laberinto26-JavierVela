@@ -9,7 +9,10 @@ y captura de teclas en tiempo real mediante msvcrt (nativo Windows).
 import os
 import msvcrt
 
-from Orientaciones import Norte, Sur, Este, Oeste
+from norte import Norte
+from sur import Sur
+from este import Este
+from oeste import Oeste
 
 # ─── Constantes de layout ───────────────────────────────────────────────────
 _W = 33          # ancho interior del recuadro (entre las ║)

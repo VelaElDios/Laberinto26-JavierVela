@@ -1,6 +1,6 @@
 """Punto de entrada del juego del laberinto."""
 
-from Juego import Juego
+from juego import Juego
 from Interfaz import InterfazTerminal
 
 
