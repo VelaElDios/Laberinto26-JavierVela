@@ -2,7 +2,7 @@
 
 ## Descripcion
 
-Proyecto de **Diseño de Software** que implementa un laberinto interactivo en Python usando múltiples **patrones de diseño GoF**. El jugador debe escapar del laberinto enfrentándose a entes, desactivando bombas, comerciando con vendedores y sobreviviendo a trampas con temporizador, todo desde una interfaz ASCII en terminal.
+Proyecto de **Diseño de Software** que implementa un laberinto interactivo en Python usando múltiples **patrones de diseño**. El jugador debe escapar del laberinto enfrentándose a entes, desactivando bombas, comerciando con vendedores y sobreviviendo a trampas con temporizador, todo desde una interfaz ASCII en terminal.
 
 ## Ejecucion
 
