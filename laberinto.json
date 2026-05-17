@@ -18,6 +18,10 @@
             "num": 4
         },
         {
+            "tipo": "habitacion_tienda",
+            "num": 6
+        },
+        {
             "tipo": "habitacion_salida",
             "num": 5
         }
@@ -27,11 +31,19 @@
         [1, "este", 3, "oeste"],
         [2, "este", 4, "oeste"],
         [3, "sur", 4, "norte"],
-        [4, "este", 5, "oeste"]
+        [4, "este", 6, "oeste"],
+        [6, "este", 5, "oeste"]
     ],
     "bichos": [
         {"modo": "agresivo", "posicion": 3},
         {"modo": "perezoso", "posicion": 4}
     ],
-    "bombas": [2]
+    "bombas": [2],
+    "nieblas": [3],
+    "mimicos": [2],
+    "temporizadores": [
+        {"habitacion": 3, "segundos": 60},
+        {"habitacion": 4, "segundos": 60}
+    ],
+    "timer_global": 300
 }

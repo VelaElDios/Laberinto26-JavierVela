@@ -16,6 +16,10 @@ class Personaje(Ente):
         self.nombre = ""
         self.ultimo_evento = ""
         self.vidas = 3
+        self.sangre = 0
+        self.clase = "alumno"       # alumno, guerrero, profesor
+        self.dificultad = "normal"  # normal, dificil
+        self.tiene_espada = False
 
     def buscar_enemigo(self):
         """El personaje no busca enemigos activamente."""

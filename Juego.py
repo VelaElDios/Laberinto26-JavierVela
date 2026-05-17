@@ -41,6 +41,7 @@ class Juego:
         self.finalizado = False
         self.resultado = None
         self.callback_fin = lambda: None
+        self.timer_global = None  # segundos totales del laberinto
 
     def abrir_puertas(self):
         """Abre todas las puertas del laberinto."""
@@ -240,6 +241,42 @@ class Juego:
                 if getattr(hijo, 'activa', False):
                     return True
         return False
+
+    def hay_niebla_en(self, habitacion):
+        """Devuelve True si la habitacion tiene niebla activa."""
+        for hijo in getattr(habitacion, 'hijos', []):
+            if getattr(hijo, 'es_niebla', lambda: False)():
+                if getattr(hijo, 'activa', False):
+                    return True
+        return False
+
+    def hay_mimico_en(self, habitacion):
+        """Devuelve True si la habitacion tiene un mimico activo."""
+        for hijo in getattr(habitacion, 'hijos', []):
+            if getattr(hijo, 'es_mimico', lambda: False)():
+                if getattr(hijo, 'activa', False):
+                    return True
+        return False
+
+    def es_tienda_en(self, habitacion):
+        """Devuelve True si la habitacion es una tienda."""
+        return getattr(habitacion, 'es_tienda', lambda: False)()
+
+    def hay_temporizador_en(self, habitacion):
+        """Devuelve True si la habitacion tiene temporizador."""
+        for hijo in getattr(habitacion, 'hijos', []):
+            if getattr(hijo, 'es_temporizador', lambda: False)():
+                if getattr(hijo, 'activa', False):
+                    return True
+        return False
+
+    def obtener_tiempo_habitacion(self, habitacion):
+        """Devuelve los segundos del temporizador de la habitacion."""
+        for hijo in getattr(habitacion, 'hijos', []):
+            if getattr(hijo, 'es_temporizador', lambda: False)():
+                if getattr(hijo, 'activa', False):
+                    return getattr(hijo, 'segundos', 60)
+        return None
 
     def lanzar_bicho(self, un_bicho):
         """Lanza un bicho en un hilo de ejecución propio."""

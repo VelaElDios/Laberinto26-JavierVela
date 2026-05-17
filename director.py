@@ -54,6 +54,36 @@ class Director:
             except (AttributeError, TypeError) as exc:
                 print(f"Error al crear bomba en hab {num_hab}: {exc}")
 
+    def fabricar_nieblas(self):
+        """Coloca niebla en las habitaciones indicadas en la config."""
+        if not self.builder:
+            raise BuilderNoInicializadoError(
+                "Builder no inicializado al fabricar nieblas."
+            )
+        nieblas = self.data_dict.get('nieblas', [])
+        for num_hab in nieblas:
+            try:
+                self.builder.fabricar_niebla_en_habitacion(num_hab)
+            except (AttributeError, TypeError) as exc:
+                print(
+                    f"Error al crear niebla en hab {num_hab}: {exc}"
+                )
+
+    def fabricar_mimicos(self):
+        """Coloca mimicos en las habitaciones indicadas en la config."""
+        if not self.builder:
+            raise BuilderNoInicializadoError(
+                "Builder no inicializado al fabricar mimicos."
+            )
+        mimicos = self.data_dict.get('mimicos', [])
+        for num_hab in mimicos:
+            try:
+                self.builder.fabricar_mimico_en_habitacion(num_hab)
+            except (AttributeError, TypeError) as exc:
+                print(
+                    f"Error al crear mimico en hab {num_hab}: {exc}"
+                )
+
     def fabricar_juego(self):
         """Delega la creación del juego al builder."""
         if not self.builder:
@@ -91,6 +121,8 @@ class Director:
                 con = self.builder.fabricar_habitacion(num)
             elif tipo == 'habitacion_salida':
                 con = self.builder.fabricar_habitacion_salida(num)
+            elif tipo == 'habitacion_tienda':
+                con = self.builder.fabricar_habitacion_tienda(num)
             elif tipo == 'armario':
                 con = self.builder.fabricar_armario(num, padre)
             elif tipo == 'bomba':
@@ -130,12 +162,39 @@ class Director:
         """Devuelve el juego construido por el builder."""
         return self.builder.juego if self.builder else None
 
+    def fabricar_temporizadores(self):
+        """Coloca temporizadores en las habitaciones de la config."""
+        if not self.builder:
+            raise BuilderNoInicializadoError(
+                "Builder no inicializado al fabricar temporizadores."
+            )
+        temps = self.data_dict.get('temporizadores', [])
+        for item in temps:
+            try:
+                num_hab = item.get('habitacion')
+                segs = item.get('segundos', 60)
+                self.builder.fabricar_temporizador_en_habitacion(
+                    num_hab, segs
+                )
+            except (AttributeError, TypeError) as exc:
+                print(
+                    f"Error al crear temporizador: {exc}"
+                )
+
     def procesar(self, un_archivo):
         """Proceso completo: leer, inicializar builder, construir
-        laberinto, juego, bombas y bichos."""
+        laberinto, juego, bombas, nieblas, mimicos, temporizadores
+        y bichos."""
         self.leer_archivo(un_archivo)
         self.ini_builder()
         self.fabricar_laberinto()
         self.fabricar_juego()
         self.fabricar_bombas()
+        self.fabricar_nieblas()
+        self.fabricar_mimicos()
+        self.fabricar_temporizadores()
         self.fabricar_bichos()
+        # Timer global del laberinto
+        timer_global = self.data_dict.get('timer_global')
+        if timer_global and self.builder.juego:
+            self.builder.juego.timer_global = timer_global

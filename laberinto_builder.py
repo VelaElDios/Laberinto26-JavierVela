@@ -23,6 +23,10 @@ from bicho import Bicho
 from agresivo import Agresivo
 from perezoso import Perezoso
 from bomba import Bomba
+from niebla import Niebla
+from mimico import Mimico
+from habitacion_tienda import HabitacionTienda
+from temporizador import Temporizador
 from juego import Juego
 
 
@@ -134,6 +138,50 @@ class LaberintoBuilder:
             hab.agregar_hijo(bm)
             return bm
         return None
+
+    def fabricar_niebla_en_habitacion(self, un_num):
+        """Coloca niebla activa dentro de la habitacion indicada."""
+        hab = self.laberinto.obtener_habitacion(un_num)
+        if hab:
+            nb = Niebla()
+            nb.activa = True
+            hab.agregar_hijo(nb)
+            return nb
+        return None
+
+    def fabricar_mimico_en_habitacion(self, un_num):
+        """Coloca un mimico activo dentro de la habitacion indicada."""
+        hab = self.laberinto.obtener_habitacion(un_num)
+        if hab:
+            mm = Mimico()
+            mm.activa = True
+            hab.agregar_hijo(mm)
+            return mm
+        return None
+
+    def fabricar_temporizador_en_habitacion(self, un_num, segundos=60):
+        """Coloca un temporizador en la habitacion indicada."""
+        hab = self.laberinto.obtener_habitacion(un_num)
+        if hab:
+            tp = Temporizador(segundos=segundos)
+            tp.activa = True
+            hab.agregar_hijo(tp)
+            return tp
+        return None
+
+    def fabricar_habitacion_tienda(self, un_num):
+        """Crea una HabitacionTienda con el numero dado."""
+        hab = HabitacionTienda()
+        hab.num = un_num
+        hab.forma = self.fabricar_forma()
+        hab.forma.num = un_num
+
+        if hasattr(hab.forma, 'orientaciones'):
+            for each in hab.forma.orientaciones:
+                hab.poner_en_elemento(each, self.fabricar_pared())
+
+        self.laberinto.agregar_habitacion(hab)
+        return hab
 
     def fabricar_juego(self):
         """Crea el objeto Juego y lo asocia al laberinto."""
