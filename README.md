@@ -275,13 +275,13 @@ Laberinto26-Phyton/
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ec7db516-0e46-4985-a041-8a64bd278f00" width="800" alt="Diagrama de Clases">
 </p>
----
+
 
 ## Diagrama de Secuencia de Combate
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5a2deeae-60f6-4b4d-b773-0dcc2a0e84f2" width="600" alt="Diagrama de Secuencia - Combate">
 </p>
----
+
 
 ## Diagrama de Secuencia de Bomba
 <p align="center">
