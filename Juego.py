@@ -18,6 +18,14 @@ from laberinto import Laberinto
 from personaje import Personaje
 
 
+class JuegoError(Exception):
+    """Excepción base para errores del juego."""
+
+
+class JuegoFinalizadoError(JuegoError):
+    """Se lanza cuando se intenta actuar en un juego ya finalizado."""
+
+
 class Juego:
     """
     Juego es la clase principal del juego del laberinto.
@@ -30,6 +38,9 @@ class Juego:
         self.bichos = []
         self.person = None
         self.hilos = {}
+        self.finalizado = False
+        self.resultado = None
+        self.callback_fin = lambda: None
 
     def abrir_puertas(self):
         """Abre todas las puertas del laberinto."""
@@ -210,13 +221,37 @@ class Juego:
         """Devuelve la instancia Singleton de Sur."""
         return Sur.default()
 
+    def gana_personaje(self):
+        """El personaje ha ganado la partida. Marca fin de juego."""
+        self.finalizado = True
+        self.resultado = "victoria"
+        self.terminar_todos_los_bichos()
+        self.callback_fin()
+
+    def hay_bichos_en(self, habitacion):
+        """Devuelve la lista de bichos vivos en la habitación dada."""
+        return [b for b in self.bichos
+                if b.esta_vivo() and getattr(b, 'posicion', None) == habitacion]
+
+    def hay_bombas_en(self, habitacion):
+        """Devuelve True si la habitación tiene bombas activas como hijos."""
+        for hijo in getattr(habitacion, 'hijos', []):
+            if getattr(hijo, 'es_bomba', lambda: False)():
+                if getattr(hijo, 'activa', False):
+                    return True
+        return False
+
     def lanzar_bicho(self, un_bicho):
         """Lanza un bicho en un hilo de ejecución propio."""
         print(f"{un_bicho} se activa")
 
         def bicho_loop():
             while un_bicho.esta_vivo():
-                un_bicho.actua()
+                try:
+                    un_bicho.actua()
+                except (AttributeError, TypeError) as exc:
+                    print(f"Error en bicho {un_bicho}: {exc}")
+                    break
 
         thread = threading.Thread(target=bicho_loop, daemon=True)
         self.hilos[un_bicho] = thread
@@ -233,9 +268,11 @@ class Juego:
         self.terminar_bicho(un_bicho)
 
     def muere_personaje(self):
-        """Gestiona la muerte del personaje."""
-        print("Manmatao. Fin del juego")
+        """Gestiona la muerte del personaje. Marca fin de juego."""
+        self.finalizado = True
+        self.resultado = "derrota"
         self.terminar_todos_los_bichos()
+        self.callback_fin()
 
     def obtener_habitacion(self, un_num):
         """Devuelve la habitación con el número indicado."""

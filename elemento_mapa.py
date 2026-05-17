@@ -23,6 +23,10 @@ class ElementoMapa:
         """Devuelve True si el elemento es una puerta."""
         return False
 
+    def es_salida(self):
+        """Devuelve True si el elemento es una habitación de salida."""
+        return False
+
     def recorrer(self, un_bloque):
         """Recorre el elemento aplicando un_bloque."""
         raise NotImplementedError

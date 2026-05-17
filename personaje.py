@@ -15,6 +15,7 @@ class Personaje(Ente):
         super().__init__()
         self.nombre = ""
         self.ultimo_evento = ""
+        self.vidas = 3
 
     def buscar_enemigo(self):
         """El personaje no busca enemigos activamente."""
@@ -22,7 +23,10 @@ class Personaje(Ente):
 
     def ir_a(self, una_or):
         """Mueve al personaje en la dirección indicada por una_or."""
-        una_or.caminar(self)
+        try:
+            una_or.caminar(self)
+        except (AttributeError, TypeError) as exc:
+            self.ultimo_evento = f"No puedes ir en esa dirección. ({exc})"
 
     def ir_al_norte(self):
         """Mueve al personaje hacia el norte de su posición actual."""

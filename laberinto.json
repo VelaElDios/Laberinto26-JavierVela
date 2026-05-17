@@ -1,0 +1,37 @@
+{
+    "forma": "poligono4",
+    "laberinto": [
+        {
+            "tipo": "habitacion",
+            "num": 1
+        },
+        {
+            "tipo": "habitacion",
+            "num": 2
+        },
+        {
+            "tipo": "habitacion",
+            "num": 3
+        },
+        {
+            "tipo": "habitacion",
+            "num": 4
+        },
+        {
+            "tipo": "habitacion_salida",
+            "num": 5
+        }
+    ],
+    "puertas": [
+        [1, "sur", 2, "norte"],
+        [1, "este", 3, "oeste"],
+        [2, "este", 4, "oeste"],
+        [3, "sur", 4, "norte"],
+        [4, "este", 5, "oeste"]
+    ],
+    "bichos": [
+        {"modo": "agresivo", "posicion": 3},
+        {"modo": "perezoso", "posicion": 4}
+    ],
+    "bombas": [2]
+}
