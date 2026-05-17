@@ -271,21 +271,24 @@ Laberinto26-Phyton/
 
 ---
 
+## Diagrama de Clases
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ec7db516-0e46-4985-a041-8a64bd278f00" width="800" alt="Diagrama de Clases">
 </p>
+---
 
+## Diagrama de Secuencia de Combate
 <p align="center">
-  <img src="diagram-sequence-bicho.jpg" width="600" alt="Diagrama de Secuencia - Combate">
+  <img src="https://github.com/user-attachments/assets/5a2deeae-60f6-4b4d-b773-0dcc2a0e84f2" width="600" alt="Diagrama de Secuencia - Combate">
+</p>
+---
+
+## Diagrama de Secuencia de Bomba
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/32c562de-07c3-4204-9358-f7d1d0108c7e" width="600" alt="Diagrama de Secuencia - Bomba">
 </p>
 
-<p align="center">
-  <img src="diagram-sequence-bomba.jpg" width="600" alt="Diagrama de Secuencia - Bomba">
-</p>
 
-<img width="8105" height="3441" alt="diagram-class" src="https://github.com/user-attachments/assets/ec7db516-0e46-4985-a041-8a64bd278f00" />
-<img width="2543" height="4026" alt="diagram-sequence-bomba" src="https://github.com/user-attachments/assets/32c562de-07c3-4204-9358-f7d1d0108c7e" />
-<img width="3066" height="4191" alt="diagram-sequence-bicho" src="https://github.com/user-attachments/assets/5a2deeae-60f6-4b4d-b773-0dcc2a0e84f2" />
 
 
 ## Mapa del Laberinto por Defecto
