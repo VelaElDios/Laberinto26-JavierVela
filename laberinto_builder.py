@@ -5,6 +5,7 @@ Define la clase LaberintoBuilder, ConcreteBuilder del patrón Builder
 para laberintos con habitaciones cuadradas.
 """
 from habitacion import Habitacion
+from habitacion_salida import HabitacionSalida
 from pared import Pared
 from puerta import Puerta
 from armario import Armario
@@ -109,6 +110,30 @@ class LaberintoBuilder:
 
         self.laberinto.agregar_habitacion(hab)
         return hab
+
+    def fabricar_habitacion_salida(self, un_num):
+        """Crea una habitación de salida numerada y la añade al laberinto."""
+        hab = HabitacionSalida()
+        hab.num = un_num
+        hab.forma = self.fabricar_forma()
+        hab.forma.num = un_num
+
+        if hasattr(hab.forma, 'orientaciones'):
+            for each in hab.forma.orientaciones:
+                hab.poner_en_elemento(each, self.fabricar_pared())
+
+        self.laberinto.agregar_habitacion(hab)
+        return hab
+
+    def fabricar_bomba_en_habitacion(self, un_num):
+        """Crea una bomba activa dentro de la habitación indicada."""
+        hab = self.laberinto.obtener_habitacion(un_num)
+        if hab:
+            bm = Bomba()
+            bm.activa = True
+            hab.agregar_hijo(bm)
+            return bm
+        return None
 
     def fabricar_juego(self):
         """Crea el objeto Juego y lo asocia al laberinto."""
